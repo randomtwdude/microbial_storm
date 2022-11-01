@@ -1,0 +1,11 @@
+static card test; // card decleration
+test.id = 0; // card ID (odd for microbes card)
+test.name = "TESTCARD"; // card display name
+test.desc = "Testing"; // card discription
+deck[0] = test; // admit to the deck
+
+static card test2;
+test2.id = 1;
+test2.name = "TESTCARD2";
+test2.desc = "Testing2";
+deck[1] = test2;

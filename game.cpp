@@ -26,7 +26,6 @@ void start() {
     player p1, p2;
     createCards();
     createPlayer(p1, p2); // in functions
-    cout << "player creation complete\n";
     gameLoop(p1, p2);
 }
 
