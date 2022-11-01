@@ -10,8 +10,15 @@
 #include "functions.h"
 using namespace std;
 
-#define CARD_COUNT 2
+// Change this to reflect changes to cards.def
+#define CARD_COUNT 11
 card deck[CARD_COUNT];
+
+// insert card into deck, called by createCards()
+void insertCard(card c, int &n) {
+    deck[n] = c;
+    n++;
+}
 
 /* All microbe cards have ODD ids */
 void createCards() {
@@ -45,16 +52,16 @@ void addCard(player &p, card c) {
 void dealCard(player &p, int num) {
     cout << "Dealing " << num << " cards to " << p.name << endl;
     assert(p.handCount + num <= 6);
+
+    srand(time(NULL));
+
     for(int i=0; i<num; i++) {
-        srand(time(NULL));
         int sel;
 
         do sel = rand() % CARD_COUNT;
-        while(sel % 2 != p.type);
+        while(deck[sel].id % 2 != p.type);
 
-        for(int j=0; j<CARD_COUNT; j++)
-            if(deck[j].id == sel)
-                addCard(p, deck[j]);
+        addCard(p, deck[sel]);
     }
 }
 
@@ -97,8 +104,13 @@ void gameLoop(player &player1, player &player2) {
 /* GameLoop specific functions */
 
 // prints information about a card
+#include <sstream>
 void showCard(card c) {
-    cout << c.name << " (" << c.id << ") | " << c.desc << endl;
+    stringstream buffer;
+    buffer << c.name << " (" << c.id << ")";
+    string out = buffer.str();
+    out.append(40 - out.length(), ' ');
+    cout << out << "| " << c.desc << endl;
 }
 
 // prints a player's hand

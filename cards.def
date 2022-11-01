@@ -1,11 +1,77 @@
+/* Define all your cards here!
+   Please follow proper syntax. This gets compiled as code.
+   The name field has a length limit of 35 characters.
+   DO NOT FORGET to change the CARD_COUNT variable (current: 11) in functions.cpp
+   or it will segfault. */
+
+int n = 0; // do not touch
+
 static card test; // card decleration
 test.id = 0; // card ID (odd for microbes card)
 test.name = "TESTCARD"; // card display name
 test.desc = "Testing"; // card discription
-deck[0] = test; // admit to the deck
+insertCard(test, n); // admit to the deck
 
-static card test2;
-test2.id = 1;
-test2.name = "TESTCARD2";
-test2.desc = "Testing2";
-deck[1] = test2;
+// Microbes Cards (Odd IDs)
+
+static card SCov2;
+SCov2.id = 1;
+SCov2.name = "SARS-Cov-2";
+SCov2.desc = "The 2019 Novel Coronavirus";
+insertCard(SCov2, n);
+
+static card Smallpox;
+Smallpox.id = 3;
+Smallpox.name = "Smallpox";
+Smallpox.desc = "The variola virus";
+insertCard(Smallpox, n);
+
+static card Rubella;
+Rubella.id = 5;
+Rubella.name = "Rubella (German measles)";
+Rubella.desc = "A common mild infection.";
+insertCard(Rubella, n);
+
+static card Flu;
+Flu.id = 7;
+Flu.name = "Influenza";
+Flu.desc = "The flu comes and goes almost yearly.";
+insertCard(Flu, n);
+
+static card Aids;
+Aids.id = 9;
+Aids.name = "HIV/AIDS";
+Aids.desc = "You know this one.";
+insertCard(Aids, n);
+
+static card Diphth;
+Diphth.id = 11;
+Diphth.name = "Diphtheria";
+Diphth.desc = "Symptoms vary wildly.";
+insertCard(Diphth, n);
+
+// Human Cards (Even IDs)
+
+static card Vac;
+Vac.id = 2;
+Vac.name = "Vaccines";
+Vac.desc = "Groundbreaking medical advancement.";
+insertCard(Vac, n);
+
+static card Pax;
+Pax.id = 4;
+Pax.name = "Antiviral drugs - Paxlovid";
+Pax.desc = "Paxlovid works by inhibiting enzymes necessary for the Covid virus.";
+insertCard(Pax, n);
+
+static card CG1;
+CG1.id = 6;
+CG1.name = "Antiviral drugs - Ching-guan 1";
+CG1.desc = "Ching-guan 1 targets the virus and the ACE2 receptor proteins.";
+insertCard(CG1, n);
+
+static card Mask;
+Mask.id = 8;
+Mask.name = "Face masks";
+Mask.desc = "Face coverings significantly lower risks of infection.";
+insertCard(Mask, n);
