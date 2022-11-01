@@ -1,9 +1,10 @@
 #include <iostream>
 #include <string.h>
+
+#include "functions.cpp"
 using namespace std;
 
 #define CMDCOUNT 3
-
 string cmds[CMDCOUNT][2] = {{"quit", "Quits the game.\n"},
                             {"help", "Displays the help message.\n"},
                             {"start", "Starts the game.\n"}};
@@ -22,7 +23,7 @@ void help() {
 
 void start() {
     cout << "Starting!";
-    
+    createPlayer(); // in functions
 }
 
 int main() {
