@@ -5,15 +5,11 @@
 #include <iostream>
 using namespace std;
 
-#define CARD_COUNT 2
-
 struct card {
     string name;
     string desc;
     int id;
 };
-
-extern card deck[CARD_COUNT];
 
 struct player {
     int type; // 0 for humans, 1 for microbes

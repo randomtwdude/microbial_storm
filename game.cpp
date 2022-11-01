@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string.h>
 
-#include "functions.cpp"
+#include "functions.h"
 using namespace std;
 
 #define CMDCOUNT 3
@@ -22,8 +22,12 @@ void help() {
 }
 
 void start() {
-    cout << "Starting!";
-    createPlayer(); // in functions
+    cout << "Starting!\n";
+    player p1, p2;
+    createCards();
+    createPlayer(p1, p2); // in functions
+    cout << "player creation complete\n";
+    gameLoop(p1, p2);
 }
 
 int main() {

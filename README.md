@@ -2,4 +2,4 @@
 Digital demo of a game we made
 
 ## Compile
-You don't for now. (I'm still figuring it out)
+`g++ game.cpp functions.cpp`
