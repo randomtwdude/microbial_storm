@@ -10,6 +10,7 @@ static card test; // card decleration
 test.id = 0; // card ID (odd for microbes card)
 test.name = "TESTCARD"; // card display name
 test.desc = "Testing"; // card discription
+test.type = 'f'; // MICROBES: f for function, p for pathogen ;; HUMAN: a for attack, u for utility
 insertCard(test, n); // admit to the deck
 
 // Microbes Cards (Odd IDs)
@@ -18,36 +19,42 @@ static card SCov2;
 SCov2.id = 1;
 SCov2.name = "SARS-Cov-2";
 SCov2.desc = "The 2019 Novel Coronavirus";
+SCov2.type = 'p';
 insertCard(SCov2, n);
 
 static card Smallpox;
 Smallpox.id = 3;
 Smallpox.name = "Smallpox";
 Smallpox.desc = "The variola virus";
+Smallpox.type = 'p';
 insertCard(Smallpox, n);
 
 static card Rubella;
 Rubella.id = 5;
 Rubella.name = "Rubella (German measles)";
 Rubella.desc = "A common mild infection.";
+Rubella.type = 'p';
 insertCard(Rubella, n);
 
 static card Flu;
 Flu.id = 7;
 Flu.name = "Influenza";
 Flu.desc = "The flu comes and goes almost yearly.";
+Flu.type = 'p';
 insertCard(Flu, n);
 
 static card Aids;
 Aids.id = 9;
 Aids.name = "HIV/AIDS";
 Aids.desc = "You know this one.";
+Aids.type = 'p';
 insertCard(Aids, n);
 
 static card Diphth;
 Diphth.id = 11;
 Diphth.name = "Diphtheria";
 Diphth.desc = "Symptoms vary wildly.";
+Diphth.type = 'p';
 insertCard(Diphth, n);
 
 // Human Cards (Even IDs)

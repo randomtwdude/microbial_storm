@@ -27,6 +27,7 @@ void start() {
     createCards();
     createPlayer(p1, p2); // in functions
     gameLoop(p1, p2);
+    cout << "You are back in the main menu.\n";
 }
 
 int main() {
