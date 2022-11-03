@@ -57,6 +57,55 @@ Diphth.desc = "Symptoms vary wildly.";
 Diphth.type = 'p';
 insertCard(Diphth, n);
 
+static card Typhoid;
+Typhoid.id = 13;
+Typhoid.name = "Typhoid fever";
+Typhoid.desc = "Also known as slow fever.";
+Typhoid.type = 'p';
+insertCard(Typhoid, n);
+
+static card Plague;
+Plague.id = 15;
+Plague.name = "Plague";
+Plague.desc = "Carried by rodents and fleas.";
+Plague.type = 'p';
+insertCard(Plague, n);
+
+static card Aureus;
+Aureus.id = 17;
+Aureus.name = "Staphylococcus Aureus";
+Aureus.desc = "Most common threat on this list.";
+Aureus.type = 'p';
+insertCard(Aureus, n);
+
+static card Syphilis;
+Syphilis.id = 19;
+Syphilis.name = "Treponema pallidum";
+Syphilis.desc = "This bacteria causes syphilis.";
+Syphilis.type = 'p';
+insertCard(Syphilis, n);
+
+static card Endemic;
+Endemic.id = 21;
+Endemic.name = "Endemic";
+Endemic.desc = "Regional prominence. Health +1. Mutation chance +1/6.";
+Endemic.type = 'f';
+insertCard(Endemic, n);
+
+static card Pandemic;
+Pandemic.id = 23;
+Pandemic.name = "Pandemic";
+Pandemic.desc = "Global prominence. Health +1. Mutation chance doubled.";
+Pandemic.type = 'f';
+insertCard(Pandemic, n);
+
+static card Mutate;
+Mutate.id = 25;
+Mutate.name = "Mutate";
+Mutate.desc = "Invalidates human immunities.";
+Mutate.type = 'f';
+insertCard(Mutate, n);
+
 // Human Cards (Even IDs)
 
 static card Vac;

@@ -163,6 +163,8 @@ void gameLoop(player &player1, player &player2) {
         }// while
         if(input == "quit") break;
 
+        this_thread::sleep_for(chrono::milliseconds(500));
+
         // ===Phase 2: humans===
         // Draw to 5
         if(human.handCount < 5) dealCard(human, 5-human.handCount);
@@ -219,6 +221,8 @@ void gameLoop(player &player1, player &player2) {
         }// while
         if(input == "quit") break;
 
+        this_thread::sleep_for(chrono::milliseconds(500));
+
         // ===Phase 3: tally===
         cout << "==========MICROBES PLAYED==========\n";
         if(m_table_count == 0) cout << "Nothing.\n";
@@ -229,11 +233,33 @@ void gameLoop(player &player1, player &player2) {
         for(int i=0; i<h_table_count; i++)
             showCard(h_table[i], i);
 
+        card pathogen_of_the_round;
+
+        bool canMutate = false;
+        float mutateChance = 0;
+        for(int i=0; i<m_table_count; i++) {
+            if(m_table[i].type == 'p') { // pathogen
+                pathogen_of_the_round = m_table[i];
+            }else { // function
+                switch(m_table[i].id) {
+                    case 21:
+                        microbe.health++;
+                        mutateChance += 1.0 / 6.0;
+                        break;
+                    case 23:
+                        microbe.health++;
+                        mutateChance += 1.0 / 3.0;
+                        break;
+                    case 25:
+                        mutateChance += (4.0 - microbe.health) * (1.0 / 3.0);
+                        canMutate = true;
+                        break;
+                }
+            }
+        }
 
         // microbes passive
         if(m_played_cards_p + m_played_cards_f == 0) microbe.health--;
-
-        // draw card if none can be played
 
         // apply changes and advance
         if(player1.type == 1) {
@@ -245,7 +271,7 @@ void gameLoop(player &player1, player &player2) {
         }
         cout << "Round " << roundCounter << " finished.\n";
         roundCounter++;
-        this_thread::sleep_for(chrono::milliseconds(3000));
+        this_thread::sleep_for(chrono::milliseconds(5000));
     }// while
 }
 
@@ -284,4 +310,6 @@ void playCard(player &p, int cc, card t[], int &tc) {
         p.hand[i] = p.hand[i+1];
 
     p.handCount--;
+
+    this_thread::sleep_for(chrono::milliseconds(1000));
 }
