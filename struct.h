@@ -9,7 +9,8 @@ struct card {
     string name;
     string desc;
     char type;
-    int immune = 0; // pathogen card only
+    int immune = 0; // if human has been infected by the pathogen, pathogen card only
+    int mutated = 0; // if the pathogen has mutated, pathogen card only
     int target[10] = {0}; // human function cards only
     int id;
 };

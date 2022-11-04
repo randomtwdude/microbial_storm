@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <string.h>
 #include <iostream>
 #include <cstdio>
@@ -11,7 +12,7 @@
 using namespace std;
 
 // Change this to reflect changes to cards.def
-#define CARD_COUNT 11
+#define CARD_COUNT 39
 card deck[CARD_COUNT];
 
 // insert card into deck, called by createCards()
@@ -69,6 +70,8 @@ void dealCard(player &p, int num) {
 void showCard(card c, int n);
 void showHand(player p);
 void playCard(player &p, int cc, card t[], int &tc);
+int contains(card cards[], int id, int r);
+double getRand(double fr, double to);
 
 // Main game loop
 void gameLoop(player &player1, player &player2) {
@@ -237,29 +240,84 @@ void gameLoop(player &player1, player &player2) {
 
         bool canMutate = false;
         float mutateChance = 0;
-        for(int i=0; i<m_table_count; i++) {
-            if(m_table[i].type == 'p') { // pathogen
+
+        int id_of_potr;
+        for(int i=0; i<m_table_count; i++)
+            if(m_table[i].type == 'p') {
                 pathogen_of_the_round = m_table[i];
-            }else { // function
+                id_of_potr = i;
+            }
+
+        // cout << "DEBUG: POTR is " << pathogen_of_the_round.name << endl;
+
+        for(int i=0; i<m_table_count; i++) {
+            if(m_table[i].type == 'f') {
                 switch(m_table[i].id) {
                     case 21:
                         microbe.health++;
+                        cout << "Microbes health +1\n";
                         mutateChance += 1.0 / 6.0;
                         break;
                     case 23:
                         microbe.health++;
+                        cout << "Microbes health +1\n";
                         mutateChance += 1.0 / 3.0;
                         break;
                     case 25:
-                        mutateChance += (4.0 - microbe.health) * (1.0 / 3.0);
-                        canMutate = true;
+                        if(pathogen_of_the_round.immune == 1) {
+                            mutateChance += (4.0 - microbe.health) * (1.0 / 3.0);
+                            canMutate = true;
+                        }
                         break;
                 }
             }
         }
 
+        // mutate
+        if(canMutate) {
+            if(mutateChance > 1) mutateChance = 1;
+            double random = getRand(0.0, 1.0);
+            if(random < mutateChance) {
+                pathogen_of_the_round.immune = 0;
+                pathogen_of_the_round.mutated = 1;
+                cout << pathogen_of_the_round.name << " mutated successfully!\n";
+            }
+        }
+
+        bool counter = false;
+        for(int i=0; i<h_table_count; i++) {
+            if(h_table[i].type == 'a') {
+                for(int j=0; j<10; j++) {
+                    // cout << "DEBUG: now looking at target[" << j << "]\n";
+                    if(h_table[i].target[j] == pathogen_of_the_round.id) {
+                        if(pathogen_of_the_round.mutated == 0) {
+                            counter = true;
+                            cout << pathogen_of_the_round.name << " is defeated!\n";
+                        }else if(contains(h_table, 46, 10) != -1 && (contains(h_table, 44, 10) != -1 || contains(h_table, 48, 10) != -1)) {
+                            counter = true;
+                            cout << "Mutated pathogen identified and countered!\n";
+                        }
+                    }
+                }
+            }else {
+                if(h_table[i].id > 49) {
+                    human.health++;
+                    cout << "Human health +1\n";
+                }
+            }
+        }
+
+        if(!counter) {
+            human.health--;
+            pathogen_of_the_round.immune = 1;
+            cout << pathogen_of_the_round.name << " does damage to " << human.name << "!\n";
+        }
+
         // microbes passive
-        if(m_played_cards_p + m_played_cards_f == 0) microbe.health--;
+        if(m_played_cards_p + m_played_cards_f == 0) {
+            microbe.health--;
+            cout << "Microbe health -1\n";
+        }
 
         // apply changes and advance
         if(player1.type == 1) {
@@ -269,7 +327,14 @@ void gameLoop(player &player1, player &player2) {
             player1 = human;
             player2 = microbe;
         }
+        m_table[id_of_potr] = pathogen_of_the_round;
         cout << "Round " << roundCounter << " finished.\n";
+
+        // print information
+        cout << player1.name << " | HP: " << player1.health << endl;
+        cout << player2.name << " | HP: " << player2.health << endl;
+        cout << "==========================================================\n";
+
         roundCounter++;
         this_thread::sleep_for(chrono::milliseconds(5000));
     }// while
@@ -312,4 +377,19 @@ void playCard(player &p, int cc, card t[], int &tc) {
     p.handCount--;
 
     this_thread::sleep_for(chrono::milliseconds(1000));
+}
+
+//
+int contains(card cards[], int id, int r) {
+    for(int i=0; i<r; i++)
+        if(cards[i].id == id)
+            return i;
+    return -1;
+}
+
+// returns random double from fr to to
+double getRand(double fr, double to) {
+    double range = to - fr;
+    double div = RAND_MAX / range;
+    return fr + (rand() / div);
 }

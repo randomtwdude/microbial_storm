@@ -1,17 +1,19 @@
 /* Define all your cards here!
    Please follow proper syntax. This gets compiled as code.
    The name field has a length limit of 35 characters.
-   DO NOT FORGET to change the CARD_COUNT variable (current: 11) in functions.cpp
+   DO NOT FORGET to change the CARD_COUNT variable (current: 39) in functions.cpp
    or it will segfault. */
 
 int n = 0; // do not touch
 
+/*
 static card test; // card decleration
 test.id = 0; // card ID (odd for microbes card)
 test.name = "TESTCARD"; // card display name
 test.desc = "Testing"; // card discription
 test.type = 'f'; // MICROBES: f for function, p for pathogen ;; HUMAN: a for attack, u for utility
 insertCard(test, n); // admit to the deck
+*/
 
 // Microbes Cards (Odd IDs)
 
@@ -110,24 +112,229 @@ insertCard(Mutate, n);
 
 static card Vac;
 Vac.id = 2;
+Vac.type = 'a';
 Vac.name = "Vaccines";
 Vac.desc = "Groundbreaking medical advancement.";
+Vac.target[0] = 1;
+Vac.target[1] = 3;
+Vac.target[2] = 5;
+Vac.target[3] = 7;
+Vac.target[4] = 11;
+Vac.target[5] = 13;
+Vac.target[6] = 15;
 insertCard(Vac, n);
 
 static card Pax;
 Pax.id = 4;
+Pax.type = 'a';
 Pax.name = "Antiviral drugs - Paxlovid";
 Pax.desc = "Paxlovid works by inhibiting enzymes necessary for the Covid virus.";
+Pax.target[0] = 1;
 insertCard(Pax, n);
 
 static card CG1;
 CG1.id = 6;
+CG1.type = 'a';
 CG1.name = "Antiviral drugs - Ching-guan 1";
 CG1.desc = "Ching-guan 1 targets the virus and the ACE2 receptor proteins.";
+CG1.target[0] = 1;
 insertCard(CG1, n);
 
 static card Mask;
 Mask.id = 8;
+Mask.type = 'a';
 Mask.name = "Face masks";
 Mask.desc = "Face coverings significantly lower risks of infection.";
+Mask.target[0] = 1;
+Mask.target[1] = 7;
 insertCard(Mask, n);
+
+static card Cond;
+Cond.id = 10;
+Cond.type = 'a';
+Cond.name = "Condoms";
+Cond.desc = "Protections.";
+Cond.target[0] = 9;
+Cond.target[1] = 19;
+insertCard(Cond, n);
+
+static card Syr;
+Syr.id = 12;
+Syr.type = 'a';
+Syr.name = "Not sharing syringes";
+Syr.desc = "Not sharing syringes.";
+Syr.target[0] = 9;
+insertCard(Cond, n);
+
+static card Cocktail;
+Cocktail.id = 14;
+Cocktail.type = 'a';
+Cocktail.name = "Cocktail therapy";
+Cocktail.desc = "Cocktail therapy.";
+Cocktail.target[0] = 9;
+insertCard(Cocktail, n);
+
+static card CCR5;
+CCR5.id = 16;
+CCR5.type = 'a';
+CCR5.name = "CCR5-Delta32 mutation";
+CCR5.desc = "This mutation grants immunity of HIV/AIDS.";
+CCR5.target[0] = 9;
+insertCard(CCR5, n);
+
+static card Anti;
+Anti.id = 18;
+Anti.type = 'a';
+Anti.name = "Antibiotics";
+Anti.desc = "Antibiotics";
+Anti.target[0] = 11;
+Anti.target[1] = 13;
+Anti.target[2] = 15;
+Anti.target[3] = 17;
+Anti.target[4] = 19;
+insertCard(Anti, n);
+
+static card Mary;
+Mary.id = 20;
+Mary.type = 'a';
+Mary.name = "Typhoid Mary";
+Mary.desc = "Become the Typhoid Mary, Destroyer of Typhoid.";
+Mary.target[0] = 13;
+insertCard(Mary, n);
+
+static card Antivenom;
+Antivenom.id = 22;
+Antivenom.type = 'a';
+Antivenom.name = "Antivenom";
+Antivenom.desc = "Antivenom for diphtheria.";
+Antivenom.target[0] = 11;
+insertCard(Antivenom, n);
+
+static card Disinfect;
+Disinfect.id = 24;
+Disinfect.type = 'a';
+Disinfect.name = "Disinfect";
+Disinfect.desc = "Especially effective against diphtheria.";
+Disinfect.target[0] = 11;
+insertCard(Disinfect, n);
+
+static card Band;
+Band.id = 26;
+Band.type = 'a';
+Band.name = "Bandage";
+Band.desc = "Prevents infections.";
+Band.target[0] = 17;
+insertCard(Band, n);
+
+static card Alcohol;
+Alcohol.id = 28;
+Alcohol.type = 'a';
+Alcohol.name = "Alcohol";
+Alcohol.desc = "C2H5OH";
+Alcohol.target[0] = 1;
+Alcohol.target[1] = 7;
+insertCard(Alcohol, n);
+
+static card Soap;
+Soap.id = 30;
+Soap.type = 'a';
+Soap.name = "Soap";
+Soap.desc = "Cleanses.";
+Soap.target[0] = 1;
+Soap.target[1] = 3;
+Soap.target[2] = 7;
+Soap.target[3] = 13;
+insertCard(Soap, n);
+
+static card Bleach;
+Bleach.id = 32;
+Bleach.type = 'a';
+Bleach.name = "Disinfectant";
+Bleach.desc = "Bleach";
+Bleach.target[0] = 1;
+Bleach.target[1] = 3;
+Bleach.target[2] = 7;
+insertCard(Bleach, n);
+
+static card VacAd;
+VacAd.id = 34;
+VacAd.type = 'a';
+VacAd.name = "Advocate for vaccines";
+VacAd.desc = "Vaccines are good";
+VacAd.target[0] = 1;
+VacAd.target[1] = 3;
+VacAd.target[2] = 5;
+VacAd.target[3] = 7;
+VacAd.target[4] = 11;
+VacAd.target[5] = 13;
+VacAd.target[6] = 15;
+insertCard(VacAd, n);
+
+static card NoCrap;
+NoCrap.id = 36;
+NoCrap.type = 'a';
+NoCrap.name = "Avoid feces contact";
+NoCrap.desc = "Hygiene is important.";
+NoCrap.target[0] = 3;
+insertCard(NoCrap, n);
+
+static card SafeSex;
+SafeSex.id = 38;
+SafeSex.type = 'a';
+SafeSex.name = "Safe sex";
+SafeSex.desc = "Do it properly.";
+SafeSex.target[0] = 9;
+SafeSex.target[1] = 19;
+insertCard(SafeSex, n);
+
+static card NoRodent;
+NoRodent.id = 40;
+NoRodent.type = 'a';
+NoRodent.name = "Remove rodents.";
+NoRodent.desc = "Rodents also carry lots of pathogens.";
+NoRodent.target[0] = 15;
+insertCard(NoRodent, n);
+
+static card Cook;
+Cook.id = 42;
+Cook.type = 'a';
+Cook.name = "Cooking";
+Cook.desc = "Cooking your food eradicates potential pathogens.";
+Cook.target[0] = 13;
+Cook.target[1] = 17;
+insertCard(Cook, n);
+
+static card Micro;
+Micro.id = 44;
+Micro.type = 'u';
+Micro.name = "Electron microscope";
+Micro.desc = "Thanks, Leeuwenhoek.";
+insertCard(Micro, n);
+
+static card Researcher;
+Researcher.id = 46;
+Researcher.type = 'u';
+Researcher.name = "Researchers.";
+Researcher.desc = "Smart people.";
+insertCard(Researcher, n);
+
+static card Seq;
+Seq.id = 48;
+Seq.type = 'u';
+Seq.name = "Genome sequencing";
+Seq.desc = "Technology allows us to see into the genes.";
+insertCard(Seq, n);
+
+static card Workout;
+Workout.id = 50;
+Workout.type = 'u';
+Workout.name = "Working out";
+Workout.desc = "Excercise is good for the body and mind! -Princess Nautilus";
+insertCard(Workout, n);
+
+static card Food;
+Food.id = 52;
+Food.type = 'u';
+Food.name = "Balanced diet";
+Food.desc = "A balanced diet is also good for your body.";
+insertCard(Food, n);
