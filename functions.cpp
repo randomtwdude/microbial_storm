@@ -52,7 +52,6 @@ void addCard(player &p, card c) {
 /* num: number of cards to deal */
 void dealCard(player &p, int num) {
     cout << "Dealing " << num << " cards to " << p.name << endl;
-    //assert(p.handCount + num <= 6);
 
     srand(time(NULL));
 
@@ -131,7 +130,7 @@ void gameLoop(player &player1, player &player2) {
             if(input == "quit") break;
 
             if(input == "help") {
-                cout << "hand - see your hand\nplay [number] - play a card\nviewTable - see what you've played\ndone - finish your turn\n";
+                cout << "hand - see your hand\nplay [number] - play a card\ntable - see what you've played\ndone - finish your turn\n";
             }else if(input == "hand") {
                 showHand(microbe);
             }else if(input == "play") {
@@ -154,7 +153,7 @@ void gameLoop(player &player1, player &player2) {
                 }else {
                     cout << "You have already played 2 function cards!\n";
                 }
-            }else if(input == "viewTable") {
+            }else if(input == "table") {
                 if(m_table_count == 0) cout << "You haven't played any cards yet!\n";
                 for(int i=0; i<m_table_count; i++)
                     showCard(m_table[i], i);
@@ -166,7 +165,8 @@ void gameLoop(player &player1, player &player2) {
         }// while
         if(input == "quit") break;
 
-        this_thread::sleep_for(chrono::milliseconds(500));
+        cout << "-------------------------------------------------\n";
+        this_thread::sleep_for(chrono::milliseconds(1500));
 
         // ===Phase 2: humans===
         // Draw to 5
@@ -188,7 +188,7 @@ void gameLoop(player &player1, player &player2) {
             if(input == "quit") break;
 
             if(input == "help") {
-                cout << "hand - see your hand\nplay [number] - play a card\nviewTable - see what you've played\nviewOtherTable - see what your opponent has played\ndone - finish your turn\n";
+                cout << "hand - see your hand\nplay [number] - play a card\ntable - see what you've played\notherTable - see what your opponent has played\ndone - finish your turn\n";
             }else if(input == "hand") {
                 showHand(human);
             }else if(input == "play") {
@@ -208,11 +208,11 @@ void gameLoop(player &player1, player &player2) {
                     playCard(human, param, h_table, h_table_count);
                     showHand(human);
                 }
-            }else if(input == "viewTable") {
+            }else if(input == "table") {
                 if(h_table_count == 0) cout << "You haven't played any cards yet!\n";
                 for(int i=0; i<h_table_count; i++)
                     showCard(h_table[i], i);
-            }else if(input == "viewOtherTable") {
+            }else if(input == "otherTable") {
                 if(m_table_count == 0) cout << "Your opponent hasn't played any cards!\n";
                 for(int i=0; i<m_table_count; i++)
                     showCard(m_table[i], i);
@@ -293,16 +293,22 @@ void gameLoop(player &player1, player &player2) {
                         if(pathogen_of_the_round.mutated == 0) {
                             counter = true;
                             cout << pathogen_of_the_round.name << " is defeated!\n";
+                            if(h_table[i].id > 23 && h_table[i].id < 43) {
+                                microbe.health--;
+                                cout << "Microbes health -1 (card effect).\n";
+                            }
                         }else if(contains(h_table, 46, 10) != -1 && (contains(h_table, 44, 10) != -1 || contains(h_table, 48, 10) != -1)) {
                             counter = true;
                             cout << "Mutated pathogen identified and countered!\n";
+                        }else {
+                            cout << "The pathogen has mutated and evaded human defenses.\n";
                         }
                     }
                 }
             }else {
                 if(h_table[i].id > 49) {
                     human.health++;
-                    cout << "Human health +1\n";
+                    cout << "Human health +1 (card effect).\n";
                 }
             }
         }
@@ -316,7 +322,7 @@ void gameLoop(player &player1, player &player2) {
         // microbes passive
         if(m_played_cards_p + m_played_cards_f == 0) {
             microbe.health--;
-            cout << "Microbe health -1\n";
+            cout << "Microbe health -1 (no cards played).\n";
         }
 
         // apply changes and advance
@@ -331,8 +337,8 @@ void gameLoop(player &player1, player &player2) {
         cout << "Round " << roundCounter << " finished.\n";
 
         // print information
-        cout << player1.name << " | HP: " << player1.health << endl;
-        cout << player2.name << " | HP: " << player2.health << endl;
+        printf("%s (%s) | HP: %d\n", player1.name.c_str(), player1.type ? "Microbe":"Human", player1.health);
+        printf("%s (%s) | HP: %d\n", player2.name.c_str(), player2.type ? "Microbe":"Human", player2.health);
         cout << "==========================================================\n";
 
         roundCounter++;
@@ -348,9 +354,18 @@ void showCard(card c, int n) {
     cout << "#" << n << endl;
     stringstream buffer;
     buffer << c.name << " (" << c.id << ")";
+    if(c.immune) buffer << "*";
     string out = buffer.str();
     out.append(40 - out.length(), ' ');
-    cout << out << "| " << c.desc << endl;
+    buffer.str(string());
+
+    if(c.id % 2 == 0) {
+        buffer << " | Target: ";
+        for(int i=0; c.target[i] != 0; i++) buffer << c.target[i] << ", ";
+        cout << out << "| " << c.desc << buffer.str() << endl;
+    }else {
+        cout << out << "| " << c.desc << buffer.str() << endl;
+    }
 }
 
 // prints a player's hand
