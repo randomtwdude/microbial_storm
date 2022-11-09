@@ -313,7 +313,7 @@ void gameLoop(player &player1, player &player2) {
             }
         }
 
-        if(!counter) {
+        if(!counter && m_played_cards_p > 0) {
             human.health--;
             pathogen_of_the_round.immune = 1;
             cout << pathogen_of_the_round.name << " does damage to " << human.name << "!\n";
